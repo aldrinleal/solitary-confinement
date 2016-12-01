@@ -53,3 +53,4 @@ app.intent('ActionIntent', {
     }
 })
 
+module.exports = app
