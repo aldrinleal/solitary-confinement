@@ -32,4 +32,4 @@ zip -r /tmp/sc.zip .
 
 aws s3 cp /tmp/sc.zip s3://$BUCKET/$KEY
 
-deploy_function_code sc_lambda index $ROLE
+deploy_function_code sc_lambda handler $ROLE
