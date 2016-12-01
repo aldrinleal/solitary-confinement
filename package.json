@@ -1,0 +1,13 @@
+{
+  "name": "solitary-confinement",
+  "version": "0.0.0",
+  "main": "index.js",
+  "alexa": {
+    "applicationId": "amzn1.ask.skill.fc7fac90-acde-4633-9a7b-7a1475b5fa67"
+  },
+  "dependencies": {
+    "alexa-app": "^2.3.4",
+    "handlebars": "^4.0.6",
+    "lodash": "^4.17.2"
+  }
+}

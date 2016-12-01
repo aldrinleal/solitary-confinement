@@ -1,0 +1,17 @@
+"use strict";
+
+return (request, response) => {
+    {{#each meta.actions}}
+    {{#if this.p}}
+    response.say('<p>{{p}}</p>');
+    {{/if}}
+    {{/each}}
+    
+    response.say('<p>You can</p>');
+    
+    {{#each meta.choices as |name choice|}}
+    response.say('<p>{{#if @index}}or {{/if}}{{name}}</p>')
+    {{/each}}
+
+    response.shouldEndSession(false);
+}
