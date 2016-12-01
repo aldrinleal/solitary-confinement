@@ -29,6 +29,7 @@ exports.buildFunction = (intentName, intentMeta) => {
     var sourceCode = template({
         page: intentName,
         meta: intentMeta
+    })
     /* Compiles it */
 
     /*jslint evil: true */
