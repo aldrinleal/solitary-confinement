@@ -64,7 +64,7 @@ var lambdaP = !!(
 )
 
 if (lambdaP) {
-    module.exports = app.lambda();
+    module.exports = exports = { handler: app.lambda() };
 } else {
     module.exports = app;
 
