@@ -45,14 +45,27 @@ var loadData = () => {
     return data
 }
 
+var endsWith = (str, suffix) => {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+
 exports.build = function(app) {
     var data = loadData()
+    
+    var actionMap = {}
 
     _.forEach(data, (intentMeta, intentName) => {
         var subFunc = functionGenerator.buildFunction(intentName, intentMeta)
         
-        app.intent(intentName, {}, subFunc(app))
+        if (endsWith(intentName, 'Intent')) {
+            app.intent(intentName, {}, subFunc(app))
+        }
+        
+        actionMap[intentName] = subFunc(app)
     })
+    
+    return actionMap
 }
 
 module.exports = exports;

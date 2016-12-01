@@ -9,9 +9,18 @@ return (request, response) => {
     
     response.say('<p>You can</p>');
     
-    {{#each meta.choices as |name choice|}}
-    response.say('<p>{{#if @index}}or {{/if}}{{name}}</p>')
+    {{#each meta.choices as |obj|}}
+    response.say('<p>{{#if @index}}or {{/if}}{{inc @index}}, to {{#each obj as |key value|}}{{key}}{{/each}}</p>')
     {{/each}}
+
+    response.session('page', '{{page}}')    
+
+    response.session('choices', JSON.stringify({    
+    {{#each meta.choices as |obj|}}
+      '{{inc @index}}': {{#each obj as |key value|}}'{{value}}'{{/each}}{{#if @last}}{{else}},{{/if}}
+    {{/each}}
+    }));
+
 
     response.shouldEndSession(false);
 }

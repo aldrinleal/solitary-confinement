@@ -1,0 +1,7 @@
+actions:
+    - p: You wait. 
+    - p: And you wait...
+    - p: And you wait a little more. Then someone start to click a metalic object against something, which looks its a metallic door.
+choices:
+    - Investigate: Investigate
+    - WaitForSomethingToHappen: Keep waiting

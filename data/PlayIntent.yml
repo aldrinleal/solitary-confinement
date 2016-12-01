@@ -1,5 +1,5 @@
 actions:
     - p: You're in a confinement cell. It's dark, and you can't see anything.
 choices:
-    - Look Around
-    - Wait for Something to Happen
+    - LookAround: Look Around
+    - WaitForSomethingToHappen: Wait for Something to Happen
