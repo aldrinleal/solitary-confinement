@@ -28,6 +28,8 @@ function deploy_function_code {
     aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs4.3 --role $FUNCTION_ROLE --handler $FUNCTION_HANDLER --code S3Bucket=$BUCKET,S3Key=$KEY --timeout 60 --memory-size 128
 }
 
-aws s3 cp target/bpservice.jar s3://$BUCKET/$KEY
+zip -r /tmp/sc.zip .
+
+aws s3 cp /tmp/sc.zip s3://$BUCKET/$KEY
 
 deploy_function_code sc_lambda index $ROLE
