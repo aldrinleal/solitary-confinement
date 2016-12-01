@@ -9,6 +9,12 @@ var exports = module.exports = {};
 const handlebars = require('handlebars'),
     fs = require('fs');
 
+/**
+ * Declare handlebars and register the increment function in order to use 1-based indexes
+ *
+ * Pro tip: Read misc/function.handlebars
+ */
+
 const template = handlebars.compile(fs.readFileSync(__dirname + '/misc/function.handlebars', 'utf8'));
 
 handlebars.registerHelper("inc", (value, options) => {
@@ -18,24 +24,13 @@ handlebars.registerHelper("inc", (value, options) => {
 exports.buildFunction = (intentName, intentMeta) => {
     console.log(intentName, intentMeta)
 
+    /* Builds the function source code */
 
     var sourceCode = template({
         page: intentName,
         meta: intentMeta
-    })
-
-    //console.log('sourceCode:', sourceCode)
+    /* Compiles it */
 
     /*jslint evil: true */
     return new Function('app', sourceCode);
-}
-
-if (require.main === module) {
-    const yaml = require('js-yaml')
-
-    var doc = yaml.safeLoad(fs.readFileSync('data/PlayIntent.yml', 'utf8'))
-
-    //console.log('doc', JSON.stringify(doc, null, 2))
-
-    exports.buildFunction('PlayIntent', doc)
 }

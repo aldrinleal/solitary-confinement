@@ -41,3 +41,15 @@ and sample utterances:
 PlayIntent play
 ActionIntent {number}
 ```
+
+### Developing
+
+1. First, checkout alexa-skill-server. Also helpful: [ngrok](https://ngrok.com)
+2. Run ngrok (see the ``ngrok.yml`` file as a tip
+3. on the examples directory, clone this project and do the steps outlined on the Setup section - Use the ngrok url instead of the lambda e.g.: https://da9fd428.ngrok.io/alexa/solitaryconfinement
+4. **Make sure you change the certificate setting to tell you'll be using a wildcard certificate**
+5. From the examples directory, run "node server"
+
+
+
+

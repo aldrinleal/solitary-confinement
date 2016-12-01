@@ -8,6 +8,8 @@ var alexa = require('alexa-app');
 
 var app = new alexa.app('solitaryconfinement');
 
+// Plays the title card
+//
 app.launch(function(request, response) {
     response
         .say('Welcome to Solitary Confinement. Say \'play\' to start a new game.')
@@ -16,30 +18,25 @@ app.launch(function(request, response) {
     response.card('Solitary Confinement', 'Welcome! Say \'play\' to start a new game.');
 });
 
-/*
-
-app.intent('PlayIntent', {
-    "utterances": [ "play" ]
-}, function(request, response) {
-    response
-        .say("You woke up in a cell. There's nothing to see.")
-        .shouldEndSession(false)
-        ;
-})*/
-
+// Load the .yml files and compile em
+//
 var actionMap = require('./history-model').build(app)
 
+// ... and make it available by means of a main interaction Intent
+//
 app.intent('ActionIntent', {
 
 }, (request, response) => {
+    // Take the user answer
     var actionIndex = request.slot("number", "0") + ""
+    // ... and available paths to branch the navigation
     var choices = JSON.parse(request.session("choices"))
+
+    // validates if the choice is a valid one
 
     var invalidAnswer = "0" === actionIndex || (!(actionIndex in choices))
 
-    //console.log(actionIndex, choices, invalidAnswer)
-
-    if (invalidAnswer) {
+    if (invalidAnswer) { // its not. replay the current options
         var prevAction = request.session("page")
 
         response.say('Invalid choice.')
@@ -49,33 +46,10 @@ app.intent('ActionIntent', {
         response.shouldEndSession(false, "We are stil waiting for your answer")
 
 
-    } else {
+    } else { // its valid. move to the next action / intent
         var actionName = choices[actionIndex]
-
-        //console.log(actionName, actionMap[actionName])
 
         actionMap[actionName](request, response)
     }
 })
 
-/*
-var lambdaP = !!(
-    process.env.LAMBDA_TASK_ROOT ||
-    false
-)
-
-if (lambdaP) {
-    module.exports = exports = { handler: app.lambda() };
-} else {
-    module.exports = app;
-
-    if (require.main === module) {
-        console.log(app.schema())
-    }
-} */
-
-module.exports = app;
-
-if (require.main === module) {
-	console.log(app.schema())
-}

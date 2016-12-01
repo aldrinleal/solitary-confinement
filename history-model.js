@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// Reads the yaml files and maps the pages with the results - by compiling the yaml files into javascript functions
+//
 'use strict';
 
 module.change_code = 1;
@@ -18,6 +20,7 @@ const dataDir = path.join(__dirname, 'data')
 var loadData = () => {
     var data = {}
 
+    // Read and parse the yaml files files
     var files = fs.readdirSync(dataDir, {
         encoding: 'utf8'
     })
@@ -26,15 +29,10 @@ var loadData = () => {
         var k = path.basename(filename, '.yml')
         var abspath = path.join(dataDir, filename)
 
-        //console.log('Loading', k, 'from', abspath)
-
-        // Get document, or throw exception on error
         try {
             var content = fs.readFileSync(abspath, "utf8")
 
             var doc = yaml.safeLoad(content)
-
-            //console.log('k:', k, 'doc', doc)
 
             data[k] = doc
         } catch (e) {
@@ -56,11 +54,15 @@ exports.build = function(app) {
     var actionMap = {}
 
     _.forEach(data, (intentMeta, intentName) => {
+	// compile the yml content into javascript functions
         var subFunc = functionGenerator.buildFunction(intentName, intentMeta)
         
         if (endsWith(intentName, 'Intent')) {
             app.intent(intentName, {}, subFunc(app))
         }
+
+
+	// store the actionmap (required for the main interaction loop)
         
         actionMap[intentName] = subFunc(app)
     })
@@ -69,11 +71,3 @@ exports.build = function(app) {
 }
 
 module.exports = exports;
-
-if (require.main === module) {
-    // _.forEach(data, function(k, v) {
-    //     console.log('k:', k, 'v:', v)
-    // })
-
-    //console.log(app.schema())
-} else {}
