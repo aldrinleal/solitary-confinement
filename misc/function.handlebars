@@ -18,7 +18,7 @@ return (request, response) => {
     /** Builds the session metadata - responsible for validating choices and storing the current page **/
 
     response.session('page', '{{page}}')    
-i
+    
     response.session('choices', JSON.stringify({    
     {{#each meta.choices as |obj|}}
       '{{inc @index}}': {{#each obj as |key value|}}'{{value}}'{{/each}}{{#if @last}}{{else}},{{/if}}
