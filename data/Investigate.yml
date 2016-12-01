@@ -1,0 +1,5 @@
+actions:
+    - p: You only hear the click. You ask who's there, but then you're anwsered with gibberish speak.
+    - p: My bad. The writer was also the developer, which means its a very short adventure, and you lost it without even having a chance at it.
+choices:
+    - PlayIntention: Restart
