@@ -58,6 +58,7 @@ app.intent('ActionIntent', {
     }
 })
 
+/*
 var lambdaP = !!(
     process.env.LAMBDA_TASK_ROOT ||
     false
@@ -71,4 +72,10 @@ if (lambdaP) {
     if (require.main === module) {
         console.log(app.schema())
     }
+} */
+
+module.exports = app;
+
+if (require.main === module) {
+	console.log(app.schema())
 }
